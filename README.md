@@ -1,4 +1,4 @@
-# python-client
+# python-client [![Build Status](https://travis-ci.org/toby-cloud/toby-python.svg?branch=master)](https://travis-ci.org/toby-cloud/toby-python)
 Use Toby with any Python application.
 
 ## Usage
