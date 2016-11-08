@@ -1,4 +1,5 @@
 import unittest
+<<<<<<< HEAD
 import toby
 
 # example on_connect callback
@@ -32,6 +33,24 @@ class TestBotErrors(unittest.TestCase):
         bot.set_on_message = on_message
         with self.assertRaises(toby.ConnectionError):
             bot.follow("")
+=======
+
+class TestStringMethods(unittest.TestCase):
+
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO')
+
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
+
+    def test_split(self):
+        s = 'hello world'
+        self.assertEqual(s.split(), ['hello', 'world'])
+        # check that s.split fails when the separator is not a string
+        with self.assertRaises(TypeError):
+            s.split(2)
+>>>>>>> 3979969cc0a0848763f59ca31a6fb41cbf2d6248
 
 if __name__ == '__main__':
     unittest.main()
