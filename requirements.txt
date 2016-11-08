@@ -1,0 +1,6 @@
+pytest
+<<<<<<< HEAD
+coverage
+=======
+>>>>>>> 3979969cc0a0848763f59ca31a6fb41cbf2d6248
+paho-mqtt
