@@ -1,11 +1,9 @@
 
 import os, urlparse, time
 import paho.mqtt.client as mqtt
-<<<<<<< HEAD
 from .errors import ConnectionError
 from .errors import CallbackError
-=======
->>>>>>> 3979969cc0a0848763f59ca31a6fb41cbf2d6248
+
 
 class Bot:
 
@@ -22,7 +20,6 @@ class Bot:
     def set_on_message(self, callback):
         self.on_message = callback
 
-<<<<<<< HEAD
     # TODO
     def follow(self, hashtag_string):
         if (not self.client):
@@ -36,25 +33,10 @@ class Bot:
 
         self.client.publish("server/" + self.botId, message)
 
+
     def start(self):
         if (not self.on_connect or not self.on_message):
             raise CallbackError('set on_connect and on_message callbacks before starting')
-
-=======
-    def follow(self, hashtag_string):
-        if (not self.client):
-            print "can't follow tags, no client"
-            quit()
-        #self.client.publish("server/" + self.botId + "/follow", hashtag_string)
-
-    def send(self, message):
-        if (not self.client):
-            print "can't send. no client"
-            quit()
-        self.client.publish("server/" + self.botId, message)
-
-    def start(self):
->>>>>>> 3979969cc0a0848763f59ca31a6fb41cbf2d6248
         # The callback for when the client receives a CONNACK response from the server.
         def on_connect(client, userdata, flags, rc):
             # Subscribing in on_connect() means that if we lose the connection and
@@ -73,12 +55,5 @@ class Bot:
 
         self.client.connect("toby.cloud", 444, 60)
 
-<<<<<<< HEAD
         # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
-=======
-        # Blocking call that processes network traffic, dispatches callbacks and
-        # handles reconnecting.
-        # Other loop*() functions are available that give a threaded interface and a
-        # manual interface.
->>>>>>> 3979969cc0a0848763f59ca31a6fb41cbf2d6248
         self.client.loop_forever()
