@@ -6,9 +6,15 @@ init:
 
 test:
 	py.test .
+	make clean
+
+coverage:
+	coverage run --source . -m py.test
+	coverage report
+	make clean
 
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
-.PHONY: init test clean
+.PHONY: init test coverage clean

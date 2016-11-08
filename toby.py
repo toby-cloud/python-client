@@ -14,4 +14,5 @@ def on_message(message):
 
 bot.set_on_connect(on_connect)
 bot.set_on_message(on_message)
-bot.start()
+#bot.start()
+#bot.send('something')

@@ -11,5 +11,5 @@ make clean # cleanup
 
 ## Dependencies
 
- - (pytest)[http://doc.pytest.org/en/latest/]
- - (paho-mqtt)[https://pypi.python.org/pypi/paho-mqtt/1.1]
+ - [pytest](http://doc.pytest.org/en/latest/)
+ - [paho-mqtt](https://pypi.python.org/pypi/paho-mqtt/1.1)
