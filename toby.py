@@ -1,11 +1,12 @@
 
-from toby import Bot
+import toby
 
-bot = Bot("python", "python")
+bot = toby.Bot("python", "python")
 
 def on_connect():
-    #toby.follow("#python");
     print "connected"
+    bot.unfollow(["python"])
+    bot.send(toby.Message("hey", "TEXT", ['asf'], 'python'))
 
 def on_message(message):
     #print "MESSAGE: " + message
