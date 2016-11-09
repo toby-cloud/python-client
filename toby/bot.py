@@ -1,6 +1,7 @@
 
-import os, urlparse, time
+import os, urlparse, time, json
 import paho.mqtt.client as mqtt
+from .message import Message
 from .errors import ConnectionError
 from .errors import CallbackError
 
@@ -20,20 +21,6 @@ class Bot:
     def set_on_message(self, callback):
         self.on_message = callback
 
-    # TODO
-    def follow(self, hashtag_string):
-        if (not self.client):
-            raise ConnectionError('Bot#follow requires active connection')
-        #self.client.publish("server/" + self.botId + "/follow", hashtag_string)
-
-    # TODO
-    def send(self, message):
-        if (not self.client):
-            raise ConnectionError('Bot#send requires active connection')
-
-        self.client.publish("server/" + self.botId, message)
-
-
     def start(self):
         if (not self.on_connect or not self.on_message):
             raise CallbackError('set on_connect and on_message callbacks before starting')
@@ -52,8 +39,40 @@ class Bot:
         self.client.username_pw_set(self.botId, password=self.botSk)
         self.client.on_connect = on_connect
         self.client.on_message = on_message
-
         self.client.connect("toby.cloud", 444, 60)
 
         # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
         self.client.loop_forever()
+
+
+    def send(self, message):
+        if (not self.client):
+            raise ConnectionError('Bot#send requires active connection')
+
+        if (not message.is_empty()):
+            self.client.publish("server/" + self.botId + "/send", str(message))
+            return True
+        else:
+            return False
+
+
+    def follow(self, tags=[], ackTag=''):
+        if (not self.client):
+            raise ConnectionError('Bot#follow requires active connection')
+
+        if (not type(tags) is list):
+            raise ValueError('Bot#follow requires a list')
+
+        request = {'tags': tags, 'ackTag': ackTag or ''}
+        self.client.publish("server/" + self.botId + "/follow", json.dumps(request))
+
+
+    def unfollow(self, tags=[], ackTag=''):
+        if (not self.client):
+            raise ConnectionError('Bot#unfollow requires active connection')
+
+        if (not type(tags) is list):
+            raise ValueError('Bot#unfollow requires a list')
+
+        request = {'tags': tags, 'ackTag': ackTag or ''}
+        self.client.publish("server/" + self.botId + "/unfollow", json.dumps(request))
