@@ -1,7 +1,6 @@
 
 import toby
 
-<<<<<<< HEAD
 bot = toby.Bot("gabe2", "gabe2")
 
 def on_connect():
@@ -12,14 +11,13 @@ def on_connect():
 def on_disconnect():
     print "disconnected"
 
-=======
 bot = toby.Bot("python", "python")
 
 def on_connect():
     print "connected"
     bot.unfollow(["python"])
     bot.send(toby.Message("hey", "TEXT", ['asf'], 'python'))
->>>>>>> c9ef4b01bf15a764d8d5f16a2cc0693273cfdaf4
+
 
 def on_message(message):
     #print "MESSAGE: " + message
