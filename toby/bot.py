@@ -29,27 +29,37 @@ class Bot:
         """
         self.on_message = callback
 
-    def start(self):
-        """ attempt to establish MQTT connection with Toby server
+    def __generate_mqtt_callbacks(self):
+        """ generate the mqtt callbacks
         """
         if not self.on_connect or not self.on_disconnect or not self.on_message:
-            raise CallbackError('set callbacks before starting')
+            raise CallbackError('bot callbacks not set')
 
         # Called when the client connects to broker
-        def on_connect(client, userdata, flags, rc):
+        def mqtt_on_connect(client, userdata, flags, rc):
             self.connected = True
             self.client.subscribe('client/' + self.botId + '/#')
             self.on_connect()
 
         # Called when a PUBLISH message is received from the server.
-        def on_message(client, userdata, msg):
+        def mqtt_on_message(client, userdata, msg):
             self.on_message(str(msg.payload))
 
         # Called when the client disconnects from the broker
-        def on_disconnect(client, userdata, rc):
+        def mqtt_on_disconnect(client, userdata, rc):
             self.connected = False
             self.on_disconnect()
             self.client.disconnect()
+
+        return [mqtt_on_connect, mqtt_on_disconnect, mqtt_on_message]
+
+    def start(self):
+        """ attempt to establish MQTT connection with Toby server
+        """
+        try:
+            on_connect, on_disconnect, on_message = self.__generate_mqtt_callbacks()
+        except CallbackError:
+            raise CallbackError('set bot callbacks before starting')
 
         self.client = mqtt.Client(client_id=self.botId)
         self.client.username_pw_set(self.botId, password=self.botSk)
@@ -59,8 +69,7 @@ class Bot:
         self.client.connect('toby.cloud', 444, 60)
 
         try:
-            # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
-            self.client.loop_forever()
+            self.client.loop_forever() # blocking call; dispatches callbacks; handles reconnecting
         except KeyboardInterrupt:
             pass
 

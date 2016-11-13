@@ -1,7 +1,7 @@
 
 import toby
 
-bot = toby.Bot("gabe2", "gabe2")
+bot = toby.Bot("", "")
 
 def on_connect():
     print "connected"
@@ -10,8 +10,6 @@ def on_connect():
 
 def on_disconnect():
     print "disconnected"
-
-bot = toby.Bot("python", "python")
 
 def on_connect():
     print "connected"
