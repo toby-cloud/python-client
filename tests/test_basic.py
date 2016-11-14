@@ -104,15 +104,15 @@ class TestMessage(unittest.TestCase):
 
     def test_empty(self):
         message = toby.Message()
-        self.assertTrue(json.loads(str(message)) == json.loads('{"message":"","messageType":"","tags":[],"ackTag":""}'))
+        self.assertTrue(json.loads(str(message)) == json.loads('{"from":"","payload":{},"tags":[],"ack":""}'))
 
     def test_to_string_all_fields(self):
-        message = toby.Message('hello', 'TEXT', ['tag1', 'tag2'], 'ack')
-        self.assertTrue(json.loads(str(message)) == json.loads('{"message":"hello","messageType":"TEXT","tags":["tag1","tag2"],"ackTag":"ack"}'))
+        message = toby.Message('sender', {"hello":"world"}, ['tag1', 'tag2'], 'ack')
+        self.assertTrue(json.loads(str(message)) == json.loads('{"from":"sender","payload":{"hello":"world"},"tags":["tag1","tag2"],"ack":"ack"}'))
 
     def test_from_string(self):
-        s = '{"message":"hello","messageType":"TEXT","tags":["tag1","tag2"],"ackTag":"ack"}'
-        message = toby.Message('hello', 'TEXT', ['tag1', 'tag2'], 'ack')
+        s = '{"from":"sender","payload":{"hello":"world"},"tags":["tag1","tag2"],"ack":"ack"}'
+        message = toby.Message('sender', {"hello":"world"}, ['tag1', 'tag2'], 'ack')
         smessage = toby.Message()
         smessage.from_json_string(s)
         self.assertTrue(str(smessage) == str(message))
@@ -131,36 +131,6 @@ class TestMessage(unittest.TestCase):
         m.from_json_string('{"random":"values","that":"should not", "be": "loaded"}')
         self.assertTrue(m.is_empty())
 
-class TestMessage(unittest.TestCase):
-
-    def test_empty(self):
-        message = toby.Message()
-        self.assertTrue(json.loads(str(message)) == json.loads('{"message":"","messageType":"","tags":[],"ackTag":""}'))
-
-    def test_to_string_all_fields(self):
-        message = toby.Message('hello', 'TEXT', ['tag1', 'tag2'], 'ack')
-        self.assertTrue(json.loads(str(message)) == json.loads('{"message":"hello","messageType":"TEXT","tags":["tag1","tag2"],"ackTag":"ack"}'))
-
-    def test_from_string(self):
-        s = '{"message":"hello","messageType":"TEXT","tags":["tag1","tag2"],"ackTag":"ack"}'
-        message = toby.Message('hello', 'TEXT', ['tag1', 'tag2'], 'ack')
-        smessage = toby.Message()
-        smessage.from_json_string(s)
-        self.assertTrue(str(smessage) == str(message))
-
-    def test_from_string_malformed(self):
-        s = '{"mese":"he","mesype":"TET","tgs":["tag1","tag2"],"ag":"ack"}'
-        message = toby.Message()
-        message.from_json_string(s)
-        self.assertTrue(message.is_empty())
-
-    def test_empty_constructor_is_empty(self):
-        self.assertTrue(toby.Message().is_empty())
-
-    def test_from_string_is_empty(self):
-        m = toby.Message()
-        m.from_json_string('{"random":"values","that":"should not", "be": "loaded"}')
-        self.assertTrue(m.is_empty())
 
 if __name__ == '__main__':
     unittest.main()
