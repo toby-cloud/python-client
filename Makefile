@@ -9,7 +9,7 @@ test:
 	make clean
 
 coverage:
-	coverage run --source . -m py.test
+	coverage run --source toby -m py.test
 	coverage report
 	make clean
 

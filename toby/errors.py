@@ -24,3 +24,14 @@ class CallbackError(Error):
 
     def __init__(self, message):
         self.message = message
+
+
+class BotError(Error):
+    """Exception raised for errors relating to bot runtime.
+
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message):
+        self.message = message
