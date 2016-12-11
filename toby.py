@@ -1,8 +1,7 @@
 
 import toby
 
-bot = toby.Bot("gbot2", "gbot2")
-
+bot = toby.Bot("python", "python")
 
 def on_disconnect():
     print "disconnected"
@@ -10,11 +9,11 @@ def on_disconnect():
 def on_connect():
     print "connected"
     bot.info("info")
-    #bot.create_bot("gbot2", "gbot2", "create")
-    #bot.create_socket(False, "socket")
-    #bot.send(toby.Message("", {"hello":"world"}, ["vLX2WD3k", "gbot"], 'python'))
-    #bot.follow(["gbot2"])
-    #bot.unfollow(["gbot"])
+    #bot.create_bot("", "", "create-bot")
+    #bot.create_socket(False, "create-socket")
+    #bot.send(toby.Message("", {"hello":"world"}, ["toby"], "python"))
+    #bot.follow(["python"])
+    #bot.unfollow(["python"])
 
 def on_message(message):
     #print "MESSAGE: " + message

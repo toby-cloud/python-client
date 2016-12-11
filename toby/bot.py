@@ -68,7 +68,7 @@ class Bot:
         self.client.on_connect = on_connect
         self.client.on_disconnect = on_disconnect
         self.client.on_message = on_message
-        self.client.connect('localhost', 1883, 60)
+        self.client.connect('toby.cloud', 444, 60)
 
         try:
             self.client.loop_forever() # blocking call; dispatches callbacks; handles reconnecting
