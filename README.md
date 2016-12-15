@@ -1,4 +1,4 @@
-# toby-python [![Build Status](https:#travis-ci.org/toby-cloud/toby-python.svg?branch=master)](https:#travis-ci.org/toby-cloud/toby-python)
+# toby-python [![Build Status](https://travis-ci.org/toby-cloud/toby-python.svg?branch=master)](https://travis-ci.org/toby-cloud/toby-python)
 A python Toby helper library.
 
 ## Usage
