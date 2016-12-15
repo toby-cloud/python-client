@@ -60,7 +60,7 @@ bot.send(toby.Message("", {"message":"hello world"}, ["tag"], 'ack'))
 Get information about the bot.
 
 ```python
-bot.info('info')
+bot.info('info') # ack
 ```
 
 ### Follow
